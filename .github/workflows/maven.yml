@@ -47,4 +47,5 @@ jobs:
       id: jugaadcheck
       run: echo "passed_count=$( grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
     - name: Return values 
-      run: echo "${{ steps.jugaadcheck.outputs.passed_count }}"
+      if: steps.jugaadcheck.outputs.passed_count > 7
+      run: echo "Jugaad is successful"
