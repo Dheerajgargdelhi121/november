@@ -46,5 +46,5 @@ jobs:
     - name: Read package.json
       env:
         VERIFICATION_PURPOSE: '${{ steps.passedcheck.output }}'
-      if: (VERIFICATION_PURPOSE > 1)
+      if: env.VERIFICATION_PURPOSE > 1
       run: echo "Everything is passed"
