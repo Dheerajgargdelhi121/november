@@ -40,20 +40,16 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./target/cucumber-report-html/cucumber-html-reports
-    - name: print number of occurances
-      id: passedcheck
-      run: grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l
-    - name: Read package.json
-      id: jugaadcheck
-      run: echo "passed_count=$( grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
-    - name: Read package2.json
-      id: jugaadchecktotal
-      run: echo "feature_count=$( grep -o -i \"Feature\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
+    - name: get number of occurances
+      id: count
+      run: |
+        echo "PASSED_COUNT=$( grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_ENV
+        echo "TOTAL_COUNT=$( grep -o -i \"Feature\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_ENV
     - name: Return values 
-      if: steps.jugaadcheck.outputs.passed_count < 7
+      if: env.PASSED_COUNT < 7
       run: echo "Jugaad is successful"
     - name: All values are
       run: | 
-        echo "Failed are ${{ steps.jugaadcheck.outputs.passed_count }}"
-        echo "Total scenariors are ${{ steps.jugaadchecktotal.outputs.feature_count }}" 
-        echo "Passed are $(( ${{steps.jugaadcheck.outputs.passed_count}} - ${{steps.jugaadchecktotal.outputs.feature_count}} ))" 
+        echo "Failed are ${{ env.PASSED_COUNT }}"
+        echo "Total scenariors are ${{ env.TOTAL_COUNT }}" 
+        echo "Passed are $(( ${{env.PASSED_COUNT}} - ${{env.TOTAL_COUNT}} ))" 
