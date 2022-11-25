@@ -44,6 +44,7 @@ jobs:
       id: passedcheck
       run: grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l
     - name: Read package.json
-      env:
-        VERIFICATION_PURPOSE: '${{ steps.passedcheck.outputs }}'
-      run: echo "${{env.VERIFICATION_PURPOSE}}"
+      id: jugaadcheck
+      run: echo "passed_count=$( grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
+    - name: Return values 
+      run: echo "${{ steps.jugaadcheck.outputs.passed_count }}
