@@ -46,7 +46,7 @@ jobs:
     - name: Read package.json
       id: jugaadcheck
       run: echo "passed_count=$( grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
-    - name: Read package.json
+    - name: Read package2.json
       id: jugaadchecktotal
       run: echo "feature_count=$( grep -o -i \"Feature\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l )" >> $GITHUB_OUTPUT
     - name: Return values 
@@ -56,4 +56,4 @@ jobs:
       run: | 
         echo "Failed are ${{ steps.jugaadcheck.outputs.passed_count }}"
         echo "Total scenariors are ${{ steps.jugaadchecktotal.outputs.total_count }}" 
-        echo "Passed are ${{ steps.jugaadcheck.outputs.passed_count - steps.jugaadchecktotal.outputs.total_count }}" 
+        echo "Passed are $(( ${{steps.jugaadcheck.outputs.passed_count}} - ${{steps.jugaadchecktotal.outputs.total_count}} ))" 
