@@ -45,6 +45,5 @@ jobs:
       run: grep -o -i \"passed\" /home/runner/work/november/november/target/cucumber-reports/cucumber.json | wc -l
     - name: Read package.json
       env:
-        VERIFICATION_PURPOSE: '${{ steps.passedcheck.output }}'
-      if: ${{env.VERIFICATION_PURPOSE > 1}}
-      run: echo "Everything is passed"
+        VERIFICATION_PURPOSE: '${{ steps.passedcheck.outputs }}'
+      run: echo "${{env.VERIFICATION_PURPOSE}}"
