@@ -55,5 +55,5 @@ jobs:
     - name: All values are
       run: | 
         echo "Failed are ${{ steps.jugaadcheck.outputs.passed_count }}"
-        echo "Total scenariors are ${{ steps.jugaadchecktotal.outputs.total_count }}" 
-        echo "Passed are $(( ${{steps.jugaadcheck.outputs.passed_count}} - ${{steps.jugaadchecktotal.outputs.total_count}} ))" 
+        echo "Total scenariors are ${{ steps.jugaadchecktotal.outputs.feature_count }}" 
+        echo "Passed are $(( ${{steps.jugaadcheck.outputs.passed_count}} - ${{steps.jugaadchecktotal.outputs.feature_count}} ))" 
